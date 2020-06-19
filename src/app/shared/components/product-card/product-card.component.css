@@ -1,0 +1,20 @@
+.card-footer{
+    padding: 0;
+}
+
+.card:focus, .card-body:focus, .card-header:focus, .card-no-border:focus,
+ .card:active, .card-body:active, .card-header:active, .card-no-border:active {
+    border: 0;
+    outline: none;
+
+}
+
+.card-body {
+    cursor: pointer;
+}
+
+.card-img-thumbnail{
+    width:100%;
+    height: 200px;
+    background-size: cover;
+}

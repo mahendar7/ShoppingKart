@@ -1,0 +1,124 @@
+<div>
+  <div class="row">
+    <div class="col-md-6">
+      <form (ngSubmit)="save(f.value)" #f="ngForm">
+        <div class="form-group">
+          <label for="title">Title</label>
+          <input #title="ngModel" [(ngModel)]="product.title" name="title" type="text" id="title" class="form-control"
+            required>
+          <div class="alert alert-danger" *ngIf="title.touched && title.invalid">
+            <span>Title is Required</span>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="price">Price</label>
+          <input #price="ngModel" [(ngModel)]="product.price" name="price" type="number" id="price" class="form-control"
+            required [min]="0">
+          <div class="alert alert-danger" *ngIf="price.touched && price.invalid">
+            <div *ngIf="price.errors.required">Price is Required</div>
+            <div *ngIf="price.errors.min">Price should be greater than Zero</div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="category">Category</label>
+          <select #category="ngModel" [(ngModel)]="product.category" name="category" id="category" type="text"
+            class="form-control" required>
+            <option value="" disabled>Select</option>
+            <option *ngFor="let c of categories$ | async" [value]="c.$key"> {{ c.name}}</option>
+            <div class="alert alert-danger" *ngIf="category.touched && category.invalid">
+              Category is required.
+            </div>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="highlight">Highlights (Comma Seperated Values)</label>
+          <textarea #highlights="ngModel" [(ngModel)]="product.highlights" name="highlights" type="text" id="highlights"
+            class="form-control" required placeholder="Ex: highlight1, highlight2"></textarea>
+          <div class="alert alert-danger" *ngIf="highlights.touched && highlights.invalid">
+            <div *ngIf="highlights.errors.required">Highlights is Required</div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="description">Description</label>
+          <textarea #description="ngModel" [(ngModel)]="product.description" name="description" type="text"
+            id="description" class="form-control" required></textarea>
+          <div class="alert alert-danger" *ngIf="description.touched && description.invalid">
+            <div *ngIf="description.errors.required">Description is Required</div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="imgURL">Video URL</label>
+          <input #vidUrl="ngModel" [(ngModel)]="product.vidUrl" name="vidUrl" type="text" id="vidUrl"
+            class="form-control" required url>
+          <div class="alert alert-danger" *ngIf="vidUrl.touched && vidUrl.invalid">
+            <div *ngIf="vidUrl.errors.required">Video URL URL is Required</div>
+            <div *ngIf="vidUrl.errors.url">Please Enter Valid URL</div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <div class="row">
+            <div class="col-10">
+              <label for="imgURL">Image URL</label>
+              <input #imgURL="ngModel" [(ngModel)]="product.imgURL" name="imgURL" type="text" id="imgURL"
+                class="form-control" required url>
+              <div class="alert alert-danger" *ngIf="imgURL.touched && imgURL.invalid">
+                <div *ngIf="imgURL.errors.required">Image URL is Required</div>
+                <div *ngIf="imgURL.errors.url">Please Enter Valid URL</div>
+              </div>
+            </div>
+            <div class="col-2">
+              <label></label>
+              <button type="button" class="btn btn-primary mb-3" (click)="addImage()" style="height: 100%;">+</button>
+            </div>
+          </div>
+        </div>
+      </form>
+
+      <!-- Adding Multiple Images -->
+      <div class="form-group" *ngFor="let image of images; let i = index;">
+        <div class="row">
+          <div class="col-10">
+            <div class="form-group">
+              <input type="text" class="form-control" [(ngModel)]="image.imgURL" name="image{{image.id}}"
+                placeholder="" />
+            </div>
+          </div>
+          <div class="col-2">
+            <button type="button" class="btn btn-danger btn-sm" (click)="removeImage(i)">Remove</button>
+          </div>
+        </div>
+      </div>
+      <!-- Adding Multiple Images -->
+
+      <!-- Form Submit Button Outside Form -->
+      <div class="form-group">
+        <button class="btn btn-primary" type="button" [disabled]="!f.valid" (click)="f.ngSubmit.emit()">Submit</button>
+        <button type="button" (click)="delete()" class="btn btn-danger" *ngIf="id">delete</button>
+      </div>
+      <!-- Form Submit Button Outside Form -->
+
+    </div>
+
+    <!-- Display Product -->
+    <div class="col-md-6">
+      <app-product-card [product]="product" [show-actions]="false" [card-click]="false"></app-product-card>
+
+      <div *ngIf="product.imgURL.length">
+        <img [src]="image.imgURL" *ngFor="let image of images" class="mr-2 side-image">
+        <div class="highlights border-top">
+          <p><b>Highlights : </b></p>
+          <p> {{product.highlights}}</p>
+        </div>
+        <div class="description">
+          <p><b>Description : </b> {{product.description}}</p>
+        </div>
+      </div>
+
+    </div>
+    <!-- Display Product -->
+  </div>
+</div>

@@ -1,0 +1,127 @@
+<form #f="ngForm">
+  <div class="form-group">
+    <label for="">Name</label>
+    <input #name="ngModel" name="name" [(ngModel)]="shipping.name" type="text" class="form-control" required>
+    <div class="alert alert-danger" *ngIf="name.touched && name.invalid">
+      <div *ngIf="name.errors.required">Name is required.</div>
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="">Address</label>
+    <input #addressLine1="ngModel" name="addressLine1" [(ngModel)]="shipping.addressLine1" type="text"
+      class="form-control" placeholder="Line 1" required>
+    <div class="alert alert-danger" *ngIf="addressLine1.touched && addressLine1.invalid">
+      <div *ngIf="addressLine1.errors.required">Address Line 1 is required.</div>
+    </div>
+  </div>
+  <div class="form-group">
+    <label for=""></label>
+    <input #addressLine2="ngModel" name="addressLine2" [(ngModel)]="shipping.addressLine2" type="text"
+      class="form-control" placeholder="Line 2" required>
+    <div class="alert alert-danger" *ngIf="addressLine2.touched && addressLine2.invalid">
+      <div *ngIf="addressLine2.errors.required">Address Line 2 is required.</div>
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="">City</label>
+    <input #city="ngModel" name="city" [(ngModel)]="shipping.city" type="text" class="form-control" required>
+    <div class="alert alert-danger" *ngIf="city.touched && city.invalid">
+      <div *ngIf="city.errors.required">City is required.</div>
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="">PIN Code</label>
+    <input #pinCode="ngModel" name="pinCode" [(ngModel)]="shipping.pinCode" type="number" class="form-control" required>
+    <div class="alert alert-danger" *ngIf="pinCode.touched && pinCode.invalid">
+      <div *ngIf="pinCode.errors.required">PIN Code is required.</div>
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="">State</label>
+    <select #state="ngModel" name="state" [(ngModel)]="shipping.state" type="text" class="form-control" required>
+      <option value="" disabled selected>Select</option>
+      <option *ngFor="let state of states" [value]="state">{{state}}</option>
+      <div class="alert alert-danger" *ngIf="state.touched && state.invalid">
+        <div *ngIf="state.errors.required">State is required.</div>
+      </div>
+    </select>
+  </div>
+
+  <div class="form-group">
+    <div class="row">
+      <div [ngClass]="otpSent ? 'col-md-12' : 'col-md-9'">
+        <input #mobile="ngModel" [(ngModel)]="shipping.mobile" name="mobile" type="text" id="mobile"
+          class="form-control" required maxlength="10" pattern="\d*" [disabled]="otpStatus" placeholder="Mobile Number">
+        <div class="alert alert-danger" *ngIf="mobile.touched && mobile.invalid">
+          <div *ngIf="mobile.errors.required">Mobile is Required</div>
+          <div *ngIf="mobile.errors.maxlength ">Mobile Number should be 10 digits.</div>
+          <div *ngIf="mobile.errors.pattern">Mobile Number should be Numbers.</div>
+        </div>
+      </div>
+      <div class="col-md-3" *ngIf="!otpSent">
+        <button type="button" class="btn btn-warning" (click)="sendOTP(shipping.mobile)">Send
+          OTP</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- OTP -->
+  <div *ngIf="otpSent && !otpVerified">
+    <div class=" alert alert-success"> OTP Succesfully Sent to {{shipping.mobile}} !</div>
+    <div class="row">
+      <div class="col-md-9">
+        <input [(ngModel)]="OTP" name="OTP" type="number" id="OTP" class="form-control" required max="6"
+          placeholder="Enter OTP">
+      </div>
+      <div class="col-md-3">
+        <button type="button" class="btn btn-success" (click)="verifyOTP(OTP)">Verify OTP</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- If Any OTP Errors -->
+  <div *ngIf="otpError">
+    <div class="form-group">
+      <div>
+        <div class=" alert alert-danger"> {{ otpError }}</div>
+      </div>
+    </div>
+  </div>
+  <!-- If Any OTP Errors -->
+
+  <div class="form-group" *ngIf="otpVerified.length">
+    <div class=" alert alert-success"> OTP is Verified Successfully !</div>
+  </div>
+
+  <!--OTP, Change this to otpVerified -->
+  <div *ngIf="!otpVerified && !!appUser">
+    <div class="form-group" *ngIf="cart$ | async as cart">
+      <div>
+        <div class=" alert alert-light text-dark" appUser.wallet>
+          Available Wallet Balance is
+          {{appUser.wallet | currency:'INR':true}}
+          {{ appUser.wallet >= cart.totalPrice ? '' : ',Please Top-up Your Wallet' }}
+        </div>
+        <div *ngIf="appUser.wallet >= cart.totalPrice">
+          <button (click)="placeOrder()" class="btn btn-primary btn-block" [disabled]="!f.valid"> Place Order with
+            Wallet Balance </button>
+          <div class=" alert alert-light text-dark">
+            <i class="fa fa-shield text-danger" aria-hidden="true"></i>
+            Facing Issue with OTP Service Provider, Please Continue Without OTP
+          </div>
+        </div>
+      </div>
+    </div>
+    <div>
+    </div>
+  </div>
+  <!-- OTP -->
+
+  <!-- If User not LoggedIn -->
+  <div class="form-group" *ngIf="!appUser">
+    <button class="btn btn-primary btn-block" (click)="login()"><i class="fa fa-google" aria-hidden="true"></i> Login
+      with Google</button>
+  </div>
+  <!-- If User not LoggedIn -->
+
+</form>

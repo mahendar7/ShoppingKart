@@ -1,0 +1,41 @@
+
+
+
+.thumbnail{
+    width:80px;
+    height: 80px;
+    border-radius: 100%;
+    -webkit-border-radius: 100%;
+    -moz-border-radius: 100%;
+    -ms-border-radius: 100%;
+    -o-border-radius: 100%;
+    background-size: cover;
+}
+
+.pad-b-0{
+    padding-bottom: 0;
+}
+.pad-t-0{
+    padding-top: 0;
+}
+
+.Arriving-Soon{
+    width: 25%;
+    background-color: lightslategrey;
+}
+.Shipping-Soon{
+    width: 40%;
+    background-color: lightslategrey;
+}
+.Shipped{
+    width: 70%;
+    background-color: lightslategrey;
+}
+.Delivered{
+    width: 100%;
+    background-color: lightslategrey;
+}
+.Cancelled{
+    width: 100%;
+    background-color:lightslategrey;
+}

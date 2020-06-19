@@ -1,0 +1,24 @@
+<div class="card mb-3" *ngIf="product.title">
+  <img [src]="product.imgURL" class="card-img-top card-no-border card-img-thumbnail" [alt]="product.title"
+    *ngIf="product.imgURL" height="300px" style="cursor: pointer"
+    [routerLink]="cardClick ? ['/product/', product.$key] : []">
+  <div class="card-body" [routerLink]="cardClick ? ['/product/', product.$key] : []">
+    <ul class="list-group list-group-flush">
+      <li class="list-group-item">
+        <h5 class="card-title"><span *ngIf="!showActions">Title :</span> {{product.title.slice(0,60)}}
+          {{product.title.length >59 ? '...' : ''}}</h5>
+      </li>
+      <li class="list-group-item"><b>Price : </b> {{product.price | currency:'INR':'true'}}</li>
+      <li class="list-group-item"><b>Category</b> : {{product.category}} </li>
+    </ul>
+  </div>
+  <div class="card-footer" *ngIf="showActions && shoppingCart">
+    <button class="btn btn-primary btn-block" (click)="addToCart()"
+      *ngIf="shoppingCart.getQuantity(product) === 0;else updateQuantity">
+      Add To Cart
+    </button>
+    <ng-template #updateQuantity>
+      <app-product-quantity [product]="product" [shopping-cart]="shoppingCart"></app-product-quantity>
+    </ng-template>
+  </div>
+</div>

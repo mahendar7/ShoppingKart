@@ -1,0 +1,59 @@
+<div class="row bg-white p-2" *ngIf="cart$ | async as cart">
+  <div class="col-1 side-bar-images p-2">
+    <img [src]="product.imgURL" alt="" class="side-img" (mouseover)="changeImage(imageLink)" #imageLink ngModel
+      id="imageLink" name="imageLink" ngDefaultControl>
+    <div *ngFor="let image of images;let i=index">
+
+      <img [src]="image.imgURL" alt="" class="side-img" (mouseover)="changeImage(imageLink)" #imageLink ngModel
+        id="imageLink" name="imageLink" *ngIf="image.imgURL != ''" ngDefaultControl>
+
+      <iframe class=" embed-responsive-item" [src]="product.vidUrl+'?modestbranding=1' | safe" allowfullscreen
+        class="side-img" (mouseover)="changeVideo(videoLink)" ngModel id="videoLink" #videoLink name="videoLink"
+        ngDefaultControl [disabled]="true" (click)="''" *ngIf="product.vidUrl && i===1">
+      </iframe>
+    </div>
+
+  </div>
+  <div class=" col-6">
+    <div class="card">
+      <img [src]="img ? img : product.imgURL |safe " class="card-img-top" alt="" height="500px" *ngIf="!video">
+      <iframe class=" embed-responsive-item" [src]="video | safe" *ngIf="video" height="300px" allowfullscreen>
+      </iframe>
+    </div>
+  </div>
+  <div class="col-5">
+    <div class="card">
+      <div class="card-header">
+        <b> {{product.title}} </b>
+      </div>
+      <div class="card-body">
+        <div class="row">
+          <div class="col-md-6">Price: {{product.price | currency:'INR':true}}</div>
+          <div class="col-md-6">Category : {{product.category}}</div>
+        </div>
+      </div>
+
+      <div class="card-footer p-2" *ngIf="cart">
+        <div class="mb-3">
+          <button class="btn btn-primary btn-block" (click)="addToCart()"
+            *ngIf="cart.getQuantity(singleProduct) ===0;else updateQuantity">
+            Add To Cart
+          </button>
+          <ng-template #updateQuantity>
+            <app-product-quantity [product]="product" [shopping-cart]="cart"></app-product-quantity>
+          </ng-template>
+        </div>
+
+        <div class="highlights border-bottom">
+          <p><b>Highlights : </b></p>
+          <ul>
+            <li *ngFor="let highlight of highlights">{{highlight}}</li>
+          </ul>
+        </div>
+        <div class="description bg-white">
+          <p><b>Description : </b> {{product.description}}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

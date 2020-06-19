@@ -1,0 +1,8 @@
+
+td, th {
+  vertical-align: middle
+}
+
+.refresh-button{
+  display: none;
+}

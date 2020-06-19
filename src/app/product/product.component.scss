@@ -1,0 +1,26 @@
+.side-img {
+    width:80px;
+    height:80px;
+    margin-bottom: 20px;
+    &:hover {
+        cursor: pointer;
+        border: 1px solid black;
+    }
+}
+
+.side-bar-images{
+    height: 80vh;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
+.description{
+    height: 30vh;
+    /* overflow: scroll; */
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
+.b-b-1{
+    border: 1px solid red;
+}

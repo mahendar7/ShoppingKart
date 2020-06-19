@@ -1,0 +1,11 @@
+.side-image{
+    width:80px;
+    height:80px;
+}
+
+.description{
+    height: 20vh;
+    /* overflow: scroll; */
+    overflow-x: hidden;
+    overflow-y: auto;
+}

@@ -1,0 +1,53 @@
+<div class="row col-10" *ngIf="cart$ | async as cart">
+  <div>
+    <h1>Shopping Cart</h1>
+    <div *ngIf="cart.items.length;else emptyCart">
+      <p>You have {{cart.totalItemsCount }} items in your shopping cart
+        <button class="btn btn-light btn-sm" (click)="clearCart()" *ngIf="cart.items.length"> Clear Shopping Cart
+        </button>
+      </p>
+      <table class="table">
+        <thead>
+          <tr>
+            <th class="text-right"></th>
+            <th class="text-left">Product </th>
+            <th style="width:230px" class="text-center">Quantity </th>
+            <th style="width: 200px" class="text-right">Price </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of cart.items">
+            <td class="text-right">
+              <div [style.backgroundImage]="'url('+item.imgURL+')'" class="thumbnail"> </div>
+            </td>
+            <td class="text-left"> {{ item.title }}</td>
+            <td class="text-center">
+              <app-product-quantity [product]="item" [shopping-cart]="cart"></app-product-quantity>
+            </td>
+            <td class="text-right">{{ item.totalPrice | currency:'INR':true }}</td>
+          </tr>
+        </tbody>
+        <tfoot>
+          <tr>
+            <th></th>
+            <th></th>
+            <th class="text-right">Total</th>
+            <th class="text-right">{{ cart.totalPrice | currency:'INR':true }} </th>
+          </tr>
+        </tfoot>
+      </table>
+      <a class="btn btn-primary" *ngIf="cart.items.length" routerLink="/check-out">Checkout</a>
+    </div>
+
+    <ng-template #emptyCart>
+      <div class="d-flex justify-content-center align-items-center">
+        <div>
+          <h4>Oops Your Shopping Cart is Empty</h4>
+          <button class="btn btn-success" routerLink="/">Keep Shopping</button>
+        </div>
+
+      </div>
+    </ng-template>
+  </div>
+
+</div>

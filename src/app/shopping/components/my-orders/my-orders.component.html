@@ -1,0 +1,83 @@
+<div class="row bottom-border">
+  <div class="col-6">
+    <h4>My Orders</h4>
+  </div>
+</div>
+<div class="card mb-3" *ngFor="let order of orders$ | async">
+  <div class="card-header">
+    <div class="row">
+      <div class="col-2">
+        <div class="row">
+          <span> ORDER PLACED </span>
+        </div>
+        <div class="row">
+          <span>{{ order.date | date:'dd MMMM yyyy'}}</span>
+        </div>
+      </div>
+      <div class="col-2">
+        <div class="row">
+          <span> Total </span>
+        </div>
+        <div class="row">
+          <span>{{ order.orderTotal | currency:'INR':true}}</span>
+        </div>
+      </div>
+      <div class="col-2">
+        <div class="row">
+          <span> SHIP TO </span>
+        </div>
+        <div class="row">
+          <span>{{ order.shipping.name }}</span>
+        </div>
+      </div>
+      <div class="offset-3 col-3 text-right">
+        <div class="row">
+          <span> ORDER # {{order.$key}} </span>
+        </div>
+        <div class="row">
+          <button class="btn btn-danger" (click)="cancelOrder(order,order.$key)"
+            *ngIf="!(order.orderStatus === 'Cancelled' || order.orderStatus === 'Delivered')">Cancel Order</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="card-body pad-b-0 .pad-t-0">
+    <h4>{{ order.orderStatus }}</h4>
+
+    <div class="row border-bottom p-2" *ngFor="let item of order.items">
+      <div class="col-2 ">
+        <div [style.backgroundImage]="'url('+item.product.imageUrl+')'" class="thumbnail">
+        </div>
+      </div>
+      <div class="col-3 ">
+        <p><b>{{item.quantity}} x {{item.product.title}} {{item.product.$key}}</b></p>
+      </div>
+      <div class="col-1">
+
+      </div>
+      <div class="col-3 ">
+        <div class="row">
+          <h6>SHIPPING ADDRESS : </h6>
+        </div>
+        <div class="row ">
+          <p> {{order.shipping.addressLine1}}, {{order.shipping.addressLine2}},
+            {{order.shipping.city}}, {{order.shipping.pinCode}},{{order.shipping.state}}. </p>
+        </div>
+      </div>
+      <div class="col-3">
+        <h6>Order Status</h6>
+        <div class=" progress " style="height: 30px;">
+          <div class="progress-bar" role="progressbar" [ngClass]="{
+            'Arriving-Soon':order.orderStatus === 'Arrving Soon',
+            'Shipping-Soon':order.orderStatus === 'Shipping Soon',
+            'Shipped':order.orderStatus === 'Shipped',
+            'Delivered':order.orderStatus === 'Delivered',
+            'Cancelled':order.orderStatus === 'Cancelled'
+          }" aria-valuenow=" 25" aria-valuemin="0" aria-valuemax="100">
+            {{order.orderStatus}}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

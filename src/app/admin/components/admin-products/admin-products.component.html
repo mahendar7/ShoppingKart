@@ -1,0 +1,41 @@
+<div class="row">
+    <div class="col-6">
+        <button class="btn btn-primary" routerLink="/admin/products/new">Add New Product</button>
+    </div>
+    <div class="offset-3 col-3">
+        <input type="text" placeholder="Search..." class="float-right form-control" #query
+            (keyup)="filter(query.value)">
+    </div>
+</div>
+
+<div>
+    <div class="row">
+        <div class="col-12">
+            <data-table [items]="items" [itemCount]="itemCount" (reload)="reloadItems($event)">
+                <data-table-column [property]="'title'" [header]="'Title'" [sortable]="true" [resizable]="true">
+                </data-table-column>
+                <data-table-column [property]="'imgURL'" [header]="'Image'">
+                    <<ng-template #dataTableCell let-item="item">
+                        <img [src]="item.imgURL" alt="p.title" height="100px" width="100%">
+                        </ng-template>
+                </data-table-column>
+
+                <data-table-column [property]="'price'" [header]="'Price'" [sortable]="true" [resizable]="true">
+                    <ng-template #dataTableCell let-item="item">
+                        {{ item.price | currency:'INR':true }}
+                    </ng-template>
+                </data-table-column>
+                <data-table-column [property]="'category'" [header]="'Category'" [sortable]="true" [resizable]="true">
+                </data-table-column>
+
+                <data-table-column [property]="'$key'" [header]="'Actions'">
+                    <ng-template #dataTableCell let-item="item">
+                        <button class="btn btn-success" [routerLink]="['/admin/products/', item.$key]">Edit</button>
+                        <button (click)="delete(item.$key)" class="btn btn-danger">Delete</button>
+                    </ng-template>
+                </data-table-column>
+
+            </data-table>
+        </div>
+    </div>
+</div>
