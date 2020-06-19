@@ -7,17 +7,23 @@ Live Demo : https://shopping-kart-6dd8d.web.app/
 <b>Setup</b>
 
         Add Firebase Project keys in Environment.ts and prod
-	Add OTP API KEY From 2factor.in
+	      Add OTP API KEY From 2factor.in
         npm install
         ng serve
         
 		
 ![alt text](http://www.mediafire.com/convkey/56f1/bjt08o4mqi83x6azg.jpg)
+        Login
 ![alt text](http://www.mediafire.com/convkey/019f/0atmk73i2z71of6zg.jpg)
+        HomePage
 ![alt text](http://www.mediafire.com/convkey/b3cd/trgo0lu0fikcbsdzg.jpg)
+        Product Details
 ![alt text](http://www.mediafire.com/convkey/f68f/1so6gqwkwsw6dbyzg.jpg)
+        Checkout
 ![alt text](http://www.mediafire.com/convkey/3410/53y4wulw9rg0z4rzg.jpg)
+        My Orders
 ![alt text](http://www.mediafire.com/convkey/7e8f/xjn43cthv4lb1ngzg.jpg)
+        Admin Order Management
 
 ## Development server
 
