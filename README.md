@@ -2,6 +2,23 @@
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.2.4.
 
+Live Demo : https://shopping-kart-6dd8d.web.app/
+
+<b>Setup</b>
+
+        Add Firebase Project keys in Environment.ts and prod
+	Add OTP API KEY From 2factor.in
+        npm install
+        ng serve
+        
+		
+![alt text](http://www.mediafire.com/convkey/56f1/bjt08o4mqi83x6azg.jpg)
+![alt text](http://www.mediafire.com/convkey/019f/0atmk73i2z71of6zg.jpg)
+![alt text](http://www.mediafire.com/convkey/b3cd/trgo0lu0fikcbsdzg.jpg)
+![alt text](http://www.mediafire.com/convkey/f68f/1so6gqwkwsw6dbyzg.jpg)
+![alt text](http://www.mediafire.com/convkey/3410/53y4wulw9rg0z4rzg.jpg)
+![alt text](http://www.mediafire.com/convkey/7e8f/xjn43cthv4lb1ngzg.jpg)
+
 ## Development server
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
