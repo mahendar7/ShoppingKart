@@ -23,7 +23,7 @@ Live Demo : https://shopping-kart-6dd8d.web.app/
 ![alt text](http://www.mediafire.com/convkey/3410/53y4wulw9rg0z4rzg.jpg)
         My Orders
 ![alt text](http://www.mediafire.com/convkey/7e8f/xjn43cthv4lb1ngzg.jpg)
-        Admin Order Management
+        Admin Product Management
 
 ## Development server
 
